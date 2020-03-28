@@ -1,0 +1,25 @@
+version: '3.6'
+
+services:
+  app_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    environment:
+      PORT_NUMBER: 8080
+      LOG_FILE_LOCATION: "logs/server.log"
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/go/contender
+  app_prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
+    environment:
+      PORT_NUMBER: 8081
+      LOG_FILE_LOCATION: "logs/server.log"
+    ports:
+    - "8081:8081"

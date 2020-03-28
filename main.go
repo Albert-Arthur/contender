@@ -9,7 +9,8 @@ import (
 )
 
 func main() {
-	logFile, _ := os.Create("logs/server.log")
+	logFileLocation := os.Getenv("LOG_FILE_LOCATION")
+	logFile, _ := os.Create(logFileLocation)
 	gin.DefaultWriter = io.MultiWriter(logFile, os.Stdout)
 
 	r := gin.Default()
@@ -22,7 +23,7 @@ func main() {
 		c.String(http.StatusOK, http.StatusText(http.StatusOK))
 	})
 
-	err := r.Run()
+	err := r.Run(":" + os.Getenv("PORT_NUMBER"))
 	if err != nil {
 		fmt.Println("Run error:", err)
 	}
